@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>API Document</title>
+  <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+</head>
+<body>
+  <redoc></redoc>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      Redoc.init({"openapi":"3.0.0","info":{"title":"API Document","description":"You can change the description by specifying it in package.json.","version":"1.0.0"},"servers":[{"url":"http://localhost:8080","description":""}],"paths":{"/":{"get":{"summary":"Hello World","tags":["hello"],"description":"Hello World","operationId":"getRoot","security":[{}],"responses":{"200":{"description":"그냥 접속하면 Hello World를 출력한다","content":{"application/json; charset=utf-8":{"schema":{"type":"object","properties":{"message":{"type":"string","example":"Hello World!","description":"this is message field"}},"required":["message"]},"examples":{"그냥 접속하면 Hello World를 출력한다":{"value":{"message":"Hello World!"}}}}}}}}}},"security":[{}],"components":{}}, {}, document.querySelector('redoc'));
+    });
+  </script>
+</body>
+</html>

@@ -1,25 +1,24 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { App } from 'supertest/types';
-import { AppModule } from './../src/app.module';
+import { describeAPI, field, HttpMethod, HttpStatus, itDoc } from 'itdoc';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication<App>;
-
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
-
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
-  });
-});
+describeAPI(
+  HttpMethod.GET,
+  '/',
+  {
+    summary: 'Hello World',
+    description: 'Hello World',
+    tag: 'hello',
+  },
+  globalThis.__APP__,
+  (apiDoc) => {
+    itDoc('그냥 접속하면 Hello World를 출력한다', (): any => {
+      return apiDoc
+        .test()
+        .req()
+        .res()
+        .status(HttpStatus.OK)
+        .body({
+          message: field('this is message field', 'Hello World!'),
+        });
+    });
+  },
+);
